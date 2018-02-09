@@ -11,12 +11,12 @@
     <ion-list-header>Follow me on social media</ion-list-header>
     <ion-item>
       <ion-icon name="logo-twitter" item-start></ion-icon>
-      @nancyv_david
+      <span (click)="launch('https://www.twitter.com/nancyv_david')">@nancyv_david</span>
     </ion-item>
 
     <ion-item>
       <ion-icon name="logo-instagram" item-start></ion-icon>
-      @nancy_navish
+      <span (click)="launch('https://www.instagram.com/nancy_navish')"> @nancy_navish</span>
     </ion-item>
     
     <ion-item>
@@ -26,7 +26,7 @@
     
     <ion-item>
       <ion-icon name="logo-facebook" item-start></ion-icon>
-      Nancy Navish
+      <span (click)="launch('https://www.facebook.com/nancyv_david')">Nancy Navish</span>
     </ion-item>
   </ion-list>
 </ion-content>

@@ -6,9 +6,9 @@ import { AboutPage } from '../about/about';
   templateUrl: 'home.html'
 })
 export class HomePage {
-
+    pushPage: any;
   constructor(public navCtrl: NavController) {
-
+    this.pushPage = AboutPage;
   }
   openAbout(){
     this.navCtrl.push(AboutPage);
