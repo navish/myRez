@@ -7,7 +7,9 @@
 </ion-header>
 
 <ion-content padding>
-<p>We are about to learn more about Nancy.</p>
+<button ion-button (click)= getUser()>Username</button>
+<p *ngIf="gotUser">We are about to learn more about {{ user.fname }}.</p>
+
 <ion-list>
 
   <ion-list-header>

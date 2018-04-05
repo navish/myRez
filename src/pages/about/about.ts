@@ -1,15 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { UserService } from "../../providers/services/users/user-service";
 
 @Component({
   selector: 'page-about',
   templateUrl: 'about.html'
 })
-export class AboutPage {
+export class AboutPage implements OnInit {
 
   about: any; 
+  username: any = {
+    "username":"user1"
+  }
+  user; any;
+  gotUser = false
 
-  constructor(public navCtrl: NavController) {
+  constructor(
+    public navCtrl: NavController,
+    private userService: UserService,
+  ) {
     this.about = {
       "favorites":
         {
@@ -30,4 +39,18 @@ export class AboutPage {
 
   }
 
+  
+  getUser(): any{
+    this.userService.getUser(JSON.stringify(this.username))
+    .subscribe(res => {
+      this.user = res[0];
+      this.gotUser=true;
+      console.log("In about")
+      console.log(this.user)
+    })
+
+  }
+
+  ngOnInit() {
+  }
 }
