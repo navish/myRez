@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { UserService } from "../../providers/services/users/user-service";
+import { UserService } from "../../providers/users-service/user-service";
 
 @Component({
   selector: 'page-about',
@@ -10,7 +10,7 @@ export class AboutPage implements OnInit {
 
   about: any; 
   username: any = {
-    "username":"user1"
+    "email":"user1@nichoree.com"
   }
   user; any;
   gotUser = false
@@ -41,7 +41,7 @@ export class AboutPage implements OnInit {
 
   
   getUser(): any{
-    this.userService.getUser(JSON.stringify(this.username))
+    this.userService.getUser(this.username)
     .subscribe(res => {
       this.user = res[0];
       this.gotUser=true;
