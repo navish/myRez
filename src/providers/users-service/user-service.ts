@@ -2,6 +2,7 @@ import { Http, Headers } from '@angular/http';
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
+import { User } from './user';
 
 /*
   Generated class for the UserServiceProvider provider.
@@ -21,8 +22,7 @@ export class UserService {
   ) {
   }  
  
-  getUser(username): any {
-    
+  getUser(username):Observable <User> {
     let params =  new HttpParams();
     return this.http.post(this.baseUrl+this.userUrl, {username}, {headers: this.headers})
                .map(res => res.json())

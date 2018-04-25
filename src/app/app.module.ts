@@ -1,6 +1,5 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Http } from '@angular/http';
 import { HttpModule } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
@@ -19,6 +18,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { UserService } from '../providers/users-service/user-service';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { SessionService } from '../providers/session/session';
 
 @NgModule({
   declarations: [
@@ -53,7 +53,8 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserService,
-    AuthServiceProvider
+    AuthServiceProvider,
+    SessionService
   ]
 })
 export class AppModule {}

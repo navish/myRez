@@ -52,7 +52,8 @@ console.log("You just made the app listen to the db", app.get('port'));
     app.post("/api/user/", function(req, res) {
         let user = req.body.username
         console.log("User API")
-        db.collection("users").find({"email": user.email }).toArray(function(err, doc) {
+        console.log(user)
+        db.collection("users").find({"email": user}).toArray(function(err, doc) {
             if (err) {
                 handleError(res, err.message, "Failed to get the user by username");
             } else {

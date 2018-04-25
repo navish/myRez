@@ -1,16 +1,12 @@
 import { Component } from '@angular/core';
 import { AlertController, LoadingController, IonicPage, Loading, NavController, NavParams } from 'ionic-angular';
 import { AuthServiceProvider } from "../../providers/auth-service/auth-service";
+import { SessionService } from "../../providers/session/session";
 import { RegisterPage } from "../register/register";
 import { HomePage } from "../home/home";
 import { TabsPage } from "../tabs/tabs";
 
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({
@@ -21,6 +17,7 @@ export class LoginPage {
   loading: Loading;
   loginCredentials: any = { email: '', password: '' };
   regPage: any;
+  userAppId;
 
  
   constructor(
@@ -28,7 +25,8 @@ export class LoginPage {
     private authService: AuthServiceProvider,  
     private loadingCtrl: LoadingController, 
     public navCtrl: NavController,
-    public navParams: NavParams
+    public navParams: NavParams,
+    private sessionService: SessionService
   ) {}
  
   public createAccount() {
@@ -43,6 +41,7 @@ export class LoginPage {
         let allowed = user.ses.allowed
         if (allowed) {        
         this.navCtrl.setRoot(TabsPage);
+        this.sessionService.setUserAppId(this.loginCredentials.email)
       } else {
         this.showError("Access Denied");
       }
