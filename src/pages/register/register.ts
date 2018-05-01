@@ -16,8 +16,10 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 })
 export class RegisterPage {
 
+  error: string;
+
   constructor(
-    private auth: AuthServiceProvider, 
+    private authService: AuthServiceProvider, 
     private alertCtrl: AlertController,
     public navCtrl: NavController, 
     public navParams: NavParams
@@ -27,7 +29,7 @@ export class RegisterPage {
   registerDetails = { fname:'', lname:'', email: '', gender: '', password: '' };
   
   public register() {
-    this.auth.register(this.registerDetails).subscribe(success => {
+    this.authService.signup(this.registerDetails).subscribe(success => {
       if (success) {
         this.createSuccess = true;
         this.showPopup("Success", "Account created.");
@@ -39,6 +41,14 @@ export class RegisterPage {
         this.showPopup("Error", error);
       });
   }
+  /*register(){
+    this.authService.signup(this.registerDetails)
+    .subscribe(
+      data => this.authService.authSuccess(data.id_token),
+      err => this.error = err
+    );
+  }
+*/
  
   showPopup(title, text) {
     let alert = this.alertCtrl.create({

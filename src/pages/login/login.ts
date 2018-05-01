@@ -15,9 +15,10 @@ import { TabsPage } from "../tabs/tabs";
 })
 export class LoginPage {
   loading: Loading;
-  loginCredentials: any = { email: '', password: '' };
+  loginCredentials: any = { username: '', password: '' };
   regPage: any;
-  userAppId;
+  userAppId;  
+  error: string;
 
  
   constructor(
@@ -33,22 +34,16 @@ export class LoginPage {
     this.navCtrl.push(RegisterPage);
   }
  
-  public login() {
-    this.showLoading();
+  login(){
+    this.showLoading
     this.authService.login(this.loginCredentials)
-      .subscribe(res => {
-        let user = this.authService.auth;
-        let allowed = user.ses.allowed
-        if (allowed) {        
-        this.navCtrl.setRoot(TabsPage);
-        this.sessionService.setUserAppId(this.loginCredentials.email)
-      } else {
-        this.showError("Access Denied");
-      }
-    },
-      error => {
-        this.showError(error);
-      });
+      .subscribe(
+        data => {
+          this.authService.authSuccess(data.token)
+          this.navCtrl.setRoot(TabsPage)
+        },
+          err => this.error = err
+        )
   }
  
   showLoading() {
@@ -70,8 +65,6 @@ export class LoginPage {
     alert.present();
   }
  
-  
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
