@@ -35,14 +35,19 @@ export class LoginPage {
   }
  
   login(){
-    this.showLoading
+    this.showLoading();
     this.authService.login(this.loginCredentials)
       .subscribe(
         data => {
-          this.authService.authSuccess(data.token)
-          this.navCtrl.setRoot(TabsPage)
+          if(data.success) {
+            this.authService.authSuccess(data.token)
+            this.navCtrl.setRoot(TabsPage)
+          }
+          else {
+            this.showError('Login Failed');
+          }
         },
-          err => this.error = err
+          err => this.showError(err)
         )
   }
  
@@ -58,7 +63,7 @@ export class LoginPage {
     this.loading.dismiss();
  
     let alert = this.alertCtrl.create({
-      title: 'Fail',
+      title: 'An Error Occured',
       subTitle: text,
       buttons: ['OK']
     });

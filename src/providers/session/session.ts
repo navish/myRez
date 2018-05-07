@@ -12,6 +12,8 @@ export class SessionService {
   public authenticated() {
     return tokenNotExpired('/_ionickv/token');
   }
-
+  getToken(){
+    return this.storage.get('token');
+  }
 
  }

@@ -16,9 +16,9 @@ import { LoginPage } from "../login/login";
 export class HomePage implements OnInit{
   pushPage: any;
   username: string;
-  email: string;
   userId: any;
   user: User;
+  token: string
   
   constructor(
       private auth: AuthServiceProvider,
@@ -32,12 +32,12 @@ export class HomePage implements OnInit{
   }
 
   showUser(){
-    this.storage.get('profile').then(val => {this.userId = val
-    this.userService.getUser(this.userId)
-    .subscribe(res => {
-      this.user = res[0];
-      this.username = this.user.fname;
-    })
+    this.storage.get('profile').then(val => { this.userId = {'email': val};
+      this.userService.getUser(this.userId)
+      .subscribe(res => {
+        this.user = res[0];
+        this.username = this.user.fname;
+      })
     })
   }
   isLogged(){

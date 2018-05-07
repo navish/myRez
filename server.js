@@ -46,20 +46,19 @@ app.listen(app.get('port'), function () {
 console.log("You just made the app listen to the db", app.get('port'));
 });
 
-
+function handleError(res, errMsg){
+    return res.status(400).send(errMsg);
+}
 // About Me API Routes Will Go Below
 
 //Get User by username
     app.post("/api/user/", function(req, res) {
         let user = req.body.username
-        console.log("User API")
-        db.collection("users").find({"email": user}).toArray(function(err, doc) {
+        db.collection("users").find({"email": user.email}).toArray(function(err, doc) {
             if (err) {
-                handleError(res, err.message, "Failed to get the user by username");
+                handleError(res, "Failed to get the user by username");
             } else {
-                console.log(doc)
                 res.status(200).json(doc)
-                //res.send(req.session.doc)
             }
         });
     });
@@ -69,18 +68,16 @@ console.log("You just made the app listen to the db", app.get('port'));
 app.post("/api/sessions/create", function(req,res) {
     let user = req.body;
     db.collection("users").find({ $and : [{"email": user.username }, {"password": user.password }] }).toArray(function(err,doc){
-        if (err) {
-            handleError(res, err.message, "Failed to login");
+        if (err || !doc || doc.length === 0) {
+            handleError(res,"Failed to login");
         } else {
-            // create a token with only our given payload
-            // we don't want to pass in the entire user since that has the password
+            // create a token with your own payload, don't pass in the entire user since that has the password
             const payload = {
                 userAppId: user.username 
             };
             var token = jwt.sign(payload, app.get('superSecret'), {
                 expiresIn: 1440 // expires in 24 hours
               });
-            
             
               // return the information including token as JSON
               res.json({
@@ -89,7 +86,6 @@ app.post("/api/sessions/create", function(req,res) {
                 token: token,
               });
             
-                //res.status(200).json(doc);
         }
     })
 })
@@ -97,7 +93,7 @@ app.post("/api/sessions/create", function(req,res) {
     app.get("/api/users/", function(req, res) {
         db.collection("users").find({}).toArray(function(err, doc) {
             if (err) {
-            handleError(res, err.message, "Failed to get users");
+            handleError(res, "Failed to get users");
             } else {
             res.status(200).json(doc);
             }
