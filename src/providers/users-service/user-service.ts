@@ -13,8 +13,8 @@ import { SessionService } from "../session/session";
 */
 @Injectable()
 export class UserService {
-  baseUrl = "http://localhost:8080/api/"
-  userUrl = "user/";
+  baseUrl = "http://localhost:8000/api/"
+  userUrl = "users/";
 
   constructor(
     public http: Http,
