@@ -43,9 +43,22 @@ function handleError(res, errMsg){
  })
 
 //Register
-router.post("/api/user/register/", function(){
+router.post("/register", function(req,res){
     let newUser = req.body.newUser
-})
+    User.create({
+        fname : req.body.fname,
+        lname : req.body.lname,
+        email : req.body.email,
+        dob: req.body.dob,
+        password : req.body.password
+    }, 
+    function (err, doc) {
+        if (err) { 
+            return res.status(500).send("There was a problem adding the information to the database.");
+        }
+        res.status(200).send(doc);
+    });
+});
 
 
 module.exports = router;
