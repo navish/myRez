@@ -1,3 +1,12 @@
 page-home {
-
+    background: url('../../assets/imgs/bg.jpg');
+}
+ion-content{
+    background: url('../../assets/imgs/bg.jpg');
+    background-size: cover;
+   
+    
+}
+ion-content p, ion-content h2 {
+    color: #fff;
 }
